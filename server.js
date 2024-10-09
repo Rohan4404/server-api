@@ -204,25 +204,25 @@ app.get('/get-data3', (req, res) => {
 });
 
 // Endpoint to save data4
-app.post('/save-data4', (req, res) => {
-    const { current4, power4 } = req.body;
-    const timestamp = Date.now(); // Get the current timestamp in milliseconds
+// app.post('/save-data4', (req, res) => {
+//     const { current4, power4 } = req.body;
+//     const timestamp = Date.now(); // Get the current timestamp in milliseconds
 
-    // Insert data into the database
-    const sql = 'INSERT INTO data4 (current4, power4, timestamp) VALUES (?, ?, ?)';
-    db.query(sql, [current4, power4, timestamp], (err, result) => {
-        if (err) {
-            console.error('Error saving data:', err);
-            res.status(500).json({ message: 'Error saving data', error: err });
-        } else {
-            const istTime = convertToIST(timestamp);
-            res.status(201).json({
-                message: 'Data saved successfully',
-                data4: { id: result.insertId, current4, power4, timestamp: istTime }
-            });
-        }
-    });
-});
+//     // Insert data into the database
+//     const sql = 'INSERT INTO data4 (current4, power4, timestamp) VALUES (?, ?, ?)';
+//     db.query(sql, [current4, power4, timestamp], (err, result) => {
+//         if (err) {
+//             console.error('Error saving data:', err);
+//             res.status(500).json({ message: 'Error saving data', error: err });
+//         } else {
+//             const istTime = convertToIST(timestamp);
+//             res.status(201).json({
+//                 message: 'Data saved successfully',
+//                 data4: { id: result.insertId, current4, power4, timestamp: istTime }
+//             });
+//         }
+//     });
+// });
 
 // Endpoint to get all data4
 // app.get('/get-data4', (req, res) => {
@@ -243,42 +243,42 @@ app.post('/save-data4', (req, res) => {
 // });
 
 
-app.get('/get-data4', (req, res) => {
-    const sql = 'SELECT * FROM data4';
-    db.query(sql, (err, results) => {
-        if (err) {
-            console.error('Error retrieving data:', err);
-            res.status(500).json({ message: 'Error retrieving data', error: err });
-        } else {
-            // Convert timestamps to IST and format them as 'YYYY-MM-DD HH:MM:SS'
-            const dataWithIST = results.map(row => ({
-                ...row,
-                timestamp: convertToIST(row.timestamp)
-            }));
-            res.status(200).json({ data4: dataWithIST });
-        }
-    });
-});
+// app.get('/get-data4', (req, res) => {
+//     const sql = 'SELECT * FROM data4';
+//     db.query(sql, (err, results) => {
+//         if (err) {
+//             console.error('Error retrieving data:', err);
+//             res.status(500).json({ message: 'Error retrieving data', error: err });
+//         } else {
+//             // Convert timestamps to IST and format them as 'YYYY-MM-DD HH:MM:SS'
+//             const dataWithIST = results.map(row => ({
+//                 ...row,
+//                 timestamp: convertToIST(row.timestamp)
+//             }));
+//             res.status(200).json({ data4: dataWithIST });
+//         }
+//     });
+// });
 // Endpoint to save data5
-app.post('/save-data5', (req, res) => {
-    const { current5, power5 } = req.body;
-    const timestamp = Date.now(); // Get the current timestamp in milliseconds
+// app.post('/save-data5', (req, res) => {
+//     const { current5, power5 } = req.body;
+//     const timestamp = Date.now(); // Get the current timestamp in milliseconds
 
-    // Insert data into the database
-    const sql = 'INSERT INTO data5 (current5, power5, timestamp) VALUES (?, ?, ?)';
-    db.query(sql, [current5, power5, timestamp], (err, result) => {
-        if (err) {
-            console.error('Error saving data:', err);
-            res.status(500).json({ message: 'Error saving data', error: err });
-        } else {
-            const istTime = convertToIST(timestamp);
-            res.status(201).json({
-                message: 'Data saved successfully',
-                data5: { id: result.insertId, current5, power5, timestamp: istTime }
-            });
-        }
-    });
-});
+//     // Insert data into the database
+//     const sql = 'INSERT INTO data5 (current5, power5, timestamp) VALUES (?, ?, ?)';
+//     db.query(sql, [current5, power5, timestamp], (err, result) => {
+//         if (err) {
+//             console.error('Error saving data:', err);
+//             res.status(500).json({ message: 'Error saving data', error: err });
+//         } else {
+//             const istTime = convertToIST(timestamp);
+//             res.status(201).json({
+//                 message: 'Data saved successfully',
+//                 data5: { id: result.insertId, current5, power5, timestamp: istTime }
+//             });
+//         }
+//     });
+// });
 
 // Endpoint to get all data5
 // app.get('/get-data5', (req, res) => {
@@ -299,22 +299,22 @@ app.post('/save-data5', (req, res) => {
 // });
 
 
-app.get('/get-data5', (req, res) => {
-    const sql = 'SELECT * FROM data5';
-    db.query(sql, (err, results) => {
-        if (err) {
-            console.error('Error retrieving data:', err);
-            res.status(500).json({ message: 'Error retrieving data', error: err });
-        } else {
-            // Convert timestamps to IST and format them as 'YYYY-MM-DD HH:MM:SS'
-            const dataWithIST = results.map(row => ({
-                ...row,
-                timestamp: convertToIST(row.timestamp)
-            }));
-            res.status(200).json({ data5: dataWithIST });
-        }
-    });
-});
+// app.get('/get-data5', (req, res) => {
+//     const sql = 'SELECT * FROM data5';
+//     db.query(sql, (err, results) => {
+//         if (err) {
+//             console.error('Error retrieving data:', err);
+//             res.status(500).json({ message: 'Error retrieving data', error: err });
+//         } else {
+//             // Convert timestamps to IST and format them as 'YYYY-MM-DD HH:MM:SS'
+//             const dataWithIST = results.map(row => ({
+//                 ...row,
+//                 timestamp: convertToIST(row.timestamp)
+//             }));
+//             res.status(200).json({ data5: dataWithIST });
+//         }
+//     });
+// });
 
 // Start the server
 const PORT = process.env.PORT || 5000;
