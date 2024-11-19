@@ -65,7 +65,7 @@ app.post('/save-data2', async (req, res) => {
 
 app.get('/get-data2', async (req, res) => {
     try {
-        const sql = 'SELECT * FROM data2';
+        const sql = 'SELECT * FROM data2 ORDER BY id DESC LIMIT 20';
         const results = await query(sql);
 
         res.status(200).json({ data2: results });
