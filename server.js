@@ -20,7 +20,7 @@ const db = mysql.createPool({
     host: 'database-1.clh4nxlube9m.us-east-1.rds.amazonaws.com',
     user: 'admin', // Replace with your DB username
     password: 'J$^CenTX1', // Replace with your DB password
-    database: 'server_db' // Replace with your database name
+    database: 'kafka_db' // Replace with your database name
 });
 
 // Promisify queries to use async/await
@@ -42,30 +42,30 @@ const convertToIST = (timestamp) => {
     return date.toLocaleString('en-IN', options);
 };
 
-app.post('/save-data2', async (req, res) => {
-    const { current2, power2, temperature } = req.body;
-    const timestamp = Date.now(); // Get the current timestamp in milliseconds
-    const istTime = convertToIST(timestamp);
+// app.post('/save-data2', async (req, res) => {
+//     const { current2, power2, temperature } = req.body;
+//     const timestamp = Date.now(); // Get the current timestamp in milliseconds
+//     const istTime = convertToIST(timestamp);
 
-    try {
-        const sql = 'INSERT INTO data2 (current2, power2, temperature, timestamp) VALUES (?, ?, ?, ?)';
-        const result = await query(sql, [current2, power2, temperature, istTime]);
+//     try {
+//         const sql = 'INSERT INTO data2 (current2, power2, temperature, timestamp) VALUES (?, ?, ?, ?)';
+//         const result = await query(sql, [current2, power2, temperature, istTime]);
 
-        res.status(201).json({
-            message: 'Data saved successfully',
-            data2: { id: result.insertId, current2, power2, temperature, timestamp: istTime }
-        });
-    } 
-    catch (err) {
-        console.error('Error saving data:', err);
-        res.status(500).json({ message: 'Error saving data', error: err });
-    }
-});
+//         res.status(201).json({
+//             message: 'Data saved successfully',
+//             data2: { id: result.insertId, current2, power2, temperature, timestamp: istTime }
+//         });
+//     } 
+//     catch (err) {
+//         console.error('Error saving data:', err);
+//         res.status(500).json({ message: 'Error saving data', error: err });
+//     }
+// });
 
 
 app.get('/get-data2', async (req, res) => {
     try {
-        const sql = 'SELECT * FROM data2 ORDER BY id DESC LIMIT 20';
+        const sql = 'SELECT * FROM sensor_readings ORDER BY id DESC LIMIT 20';
         const results = await query(sql);
 
         res.status(200).json({ data2: results });
