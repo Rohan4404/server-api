@@ -64,7 +64,7 @@ const convertToIST = (timestamp) => {
 
 app.get("/get-data2", async (req, res) => {
   try {
-    const sql = "SELECT * FROM ctsensor_readings ORDER BY id DESC LIMIT 100";
+    const sql = "SELECT * FROM ctsensor_readings ORDER BY id DESC LIMIT 20";
     const results = await query(sql);
 
     res.status(200).json({ data2: results });
