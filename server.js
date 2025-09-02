@@ -16,11 +16,11 @@ app.use((req, res, next) => {
 
 // MySQL connection pool setup for better performance
 const db = mysql.createPool({
-  connectionLimit: 10, // Set a limit on number of connections
+  connectionLimit: 10,
   host: "database-1.clh4nxlube9m.us-east-1.rds.amazonaws.com",
-  user: "admin", // Replace with your DB username
-  password: "J$^CenTX1", // Replace with your DB password
-  database: "kafka_db", // Replace with your database name
+  user: "chatapp",
+  password: "Parexl@123",
+  database: "kafka_db",
 });
 
 // Promisify queries to use async/await
@@ -37,31 +37,12 @@ const convertToIST = (timestamp) => {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
-    hour12: false, // 24-hour format
+    hour12: false,
   };
   return date.toLocaleString("en-IN", options);
 };
 
-// app.post('/save-data2', async (req, res) => {
-//     const { current2, power2, temperature } = req.body;
-//     const timestamp = Date.now(); // Get the current timestamp in milliseconds
-//     const istTime = convertToIST(timestamp);
-
-//     try {
-//         const sql = 'INSERT INTO data2 (current2, power2, temperature, timestamp) VALUES (?, ?, ?, ?)';
-//         const result = await query(sql, [current2, power2, temperature, istTime]);
-
-//         res.status(201).json({
-//             message: 'Data saved successfully',
-//             data2: { id: result.insertId, current2, power2, temperature, timestamp: istTime }
-//         });
-//     }
-//     catch (err) {
-//         console.error('Error saving data:', err);
-//         res.status(500).json({ message: 'Error saving data', error: err });
-//     }
-// });
-
+// API to get last 20 records
 app.get("/get-data2", async (req, res) => {
   try {
     const sql = "SELECT * FROM ctsensor_readings ORDER BY id DESC LIMIT 20";
@@ -76,5 +57,15 @@ app.get("/get-data2", async (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`🚀 Server is running on port ${PORT}`);
+
+  // Check database connection on startup
+  db.getConnection((err, connection) => {
+    if (err) {
+      console.error("❌ Error connecting to MySQL:", err.message);
+    } else {
+      console.log("✅ Connected to MySQL database successfully!");
+      connection.release(); // release connection back to pool
+    }
+  });
 });
