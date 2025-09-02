@@ -1,3 +1,5 @@
+require("dotenv").config(); // Load env variables
+
 const express = require("express");
 const mysql = require("mysql");
 const bodyParser = require("body-parser");
@@ -17,10 +19,10 @@ app.use((req, res, next) => {
 // MySQL connection pool setup for better performance
 const db = mysql.createPool({
   connectionLimit: 10,
-  host: "database-1.clh4nxlube9m.us-east-1.rds.amazonaws.com",
-  user: "chatapp",
-  password: "Parexl@123",
-  database: "kafka_db",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 
 // Promisify queries to use async/await
